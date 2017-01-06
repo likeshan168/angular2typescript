@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core'
 import { UserService } from '../../services/user.service';
+import { SharedModule } from '../../shared/shared.module'
 
 @Component({
     moduleId: module.id,
@@ -9,10 +10,10 @@ import { UserService } from '../../services/user.service';
 })
 
 export class TitleComponent {
-    constructor(private userService: UserService) { 
-        this.user = userService.userName;
+    constructor(private userService: UserService) {
+        this.uname = userService.userName;
     }
     @Input() subtitle = '';
     title = 'Angular modules';
-    user=''
+    uname = ''
 }

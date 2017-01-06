@@ -1,0 +1,43 @@
+<ngb-accordion closeOthers="true" #acc="ngbAccordion" activeIds="1">
+    <ngb-panel title="页面1" type="info" id=1>
+        <template ngbPanelContent>
+            Content1
+        </template>
+    </ngb-panel>
+    <ngb-panel title="页面2" type="warning" id=2>
+        <template ngbPanelContent>
+            Content2
+        </template>
+    </ngb-panel>
+</ngb-accordion>
+
+<!--<button type="button" class="btn btn-primary" (click)="toggle(acc)">
+    Button
+</button>-->
+<button type="button" class="btn btn-primary" (click)="acc.toggle('1')">
+    show panel 1
+</button>
+<button type="button" class="btn btn-primary" (click)="acc.toggle('2')">
+    show panel 2 
+</button>
+<p *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" [dismissible]="true" (close)="closeAlert(alert)">{{alert.message}}</ngb-alert>
+</p>
+<p><button type="button" class="btn btn-primary" (click)="reset()">Reset</button></p>
+
+
+<p>
+  Static self-closing alert that disappears after 20 seconds (refresh the page if it has already disappeared)
+</p>
+
+<ngb-alert *ngIf="!staticAlertClosed" (close)="staticAlertClosed = true" [dismissible]="true">Check out our awesome new features!</ngb-alert>
+
+<hr/>
+
+<p>
+  Show a self-closing success message that disappears after 5 seconds.
+</p>
+<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+<p>
+  <button class="btn btn-primary" (click)="changeSuccessMessage()">Change message</button>
+</p>

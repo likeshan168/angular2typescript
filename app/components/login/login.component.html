@@ -1,26 +1,51 @@
+{{msg}}
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="span12">
-            <form class="form-horizontal">
+        <div class="span12" [hidden]="submitted">
+            <form class="form-horizontal" #loginForm="ngForm" (ngSubmit)="login()">
                 <div class="control-group">
-                    <label class="control-label" for="inputEmail">邮箱</label>
+                    <label class="control-label" for="inputUserName">用户名</label>
                     <div class="controls">
-                        <input id="inputEmail" type="email" [(ngModel)]="email"  name="email" #email="ngModel"/>
-                        <div [hidden]="name.valid" class="alert alert-danger">email is required</div>
+                        <input id="inputUserName" type="text" [(ngModel)]="user.userName" name="userName" #userName="ngModel" required/>
+                        <div [hidden]="userName.valid || userName.pristine" class="alert alert-danger">userName is required</div>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="inputPassword">密码</label>
                     <div class="controls">
-                        <input id="inputPassword" type="password" [(ngModel)]="password"/>
+                        <input id="inputPassword" type="password" [(ngModel)]="user.password" name="password" #password="ngModel" required/>
+                        <div [hidden]="password.valid||password.pristine" class="alert alert-danger">password is required</div>
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="controls">
-                        <label class="checkbox"><input type="checkbox" /> Remember me</label> <button type="submit" class="btn">登陆</button>
+                        <label class="checkbox">
+                            <input type="checkbox" [(ngModel)]="rememberMe" name="rem" #rem/> Remember me
+                            <!--<br>TODO: remove this: {{rem.className}}-->
+                        </label>
+                        <!--<button type="submit" class="btn btn-default" (click)="login();loginForm.reset();">登陆</button>-->
+                        <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid&&!loginForm.form.pristine">登陆</button>
                     </div>
                 </div>
             </form>
+        </div>
+
+        <div [hidden]="!submitted">
+            <h2>You submitted the following:</h2>
+            <div class="row">
+                <div class="col-xs-3">Name</div>
+                <div class="col-xs-9  pull-left">{{ user.userName }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">password</div>
+                <div class="col-xs-9 pull-left">{{ user.password }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">Remember</div>
+                <div class="col-xs-9 pull-left">{{ rememberMe }}</div>
+            </div>
+            <br>
+            <button class="btn btn-default" (click)="submitted=false">Edit</button>
         </div>
     </div>
 </div>
